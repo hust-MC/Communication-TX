@@ -20,14 +20,15 @@ import android.widget.*;
 public class MainActivity extends Activity
 {
 	Socket socket = null;
-	EditText editText;
+	EditText inputIP , inputSms;
 	Button button;
 	LinearLayout alertDialog;
 
 	public void widget_init()
 	{
-		editText = (EditText) findViewById(R.id.input_IP);
+		inputIP = (EditText) findViewById(R.id.input_IP);
 		button = (Button) findViewById(R.id.shutBt);
+		inputSms = (EditText)findViewById(R.id.input_sms);
 	}
 
 	public void saveIP(String IP)
@@ -54,12 +55,12 @@ public class MainActivity extends Activity
 
 		widget_init();
 		getIP();
-		editText.setText(getIP());
+		inputIP.setText(getIP());
 	}
 
 	public void onClick_shutdown(View view)
 	{
-		final String IP = editText.getText().toString();
+		final String IP = inputIP.getText().toString();
 		Log.d("MC", IP);
 		alertDialog = (LinearLayout) getLayoutInflater().inflate(
 				R.layout.alertdialog, null);
@@ -83,7 +84,7 @@ public class MainActivity extends Activity
 									3000);
 							saveIP(IP);
 							alert.dismiss();
-							new AudioService().Record(socket);
+//							new AudioService().Record(socket);
 							Log.d("MC", "123");
 						} catch (Exception e)
 						{
@@ -115,7 +116,7 @@ public class MainActivity extends Activity
 				Activity.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sp.edit();
 		editor.clear().commit();
-		editText.setText("");
+		inputIP.setText("");
 	}
 
 	private Handler handler = new Handler()
